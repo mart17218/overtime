@@ -1,0 +1,11 @@
+2018/03/28 [server]
+1. Add build/Dockerfile for docker build
+2. Fix some server bugs
+
+2018/03/28 [server]
+1. Modulize server code and put functions and api calls in the lib/
+2. Use wrapper to decorate request api
+
+2018/03/09 [GUI]
+1. [/doc] Add document.html and example JPG files
+2. [/ot]  Add feature: If apply pre-ot or act-ot, automatically trigger search event.

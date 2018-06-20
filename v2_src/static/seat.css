@@ -1,0 +1,53 @@
+body {
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  font-family: 'Noto Sans TC', 'Montserrat', sans-serif;
+  font-size: 14px; }
+
+header.main-topic {
+  height: 10%; }
+
+section.main-block {
+  width: 95%;
+  height: 90%;
+  margin: 0 auto;
+  background-color: #f7f7f7; }
+  section.main-block .grid-container {
+    grid-template-columns: 20% auto 32%;
+    height: 100%; }
+    section.main-block .grid-container .grid-1-2 {
+      grid-template-rows: 67% 33%; }
+    section.main-block .grid-container .grid-4-1 {
+      grid-template-columns: 25% 25% 25% 25%; }
+      section.main-block .grid-container .grid-4-1.main-seat {
+        margin: 8% 0; }
+        section.main-block .grid-container .grid-4-1.main-seat .block {
+          padding: 0 2%; }
+
+[class^="grid-"] {
+  display: grid; }
+
+table[class^="seat-"] {
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 0.95rem;
+  color: #333; }
+  table[class^="seat-"] tr td {
+    border: solid 2px #0cbfc5;
+    padding: 0.95rem 0.82rem;
+    line-height: 1.4;
+    overflow: hidden; }
+
+.full-width {
+  width: 100%; }
+
+.block-right-width {
+  width: calc(50% - 6px); }
+
+/* (total-width) - (border-width) */
+.inline-block {
+  display: inline-block; }
+
+#block_right {
+  margin-left: 8%; }

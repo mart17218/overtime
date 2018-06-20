@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Document</title>
+  <link rel="stylesheet" href="{{ url_for('static',filename='document.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='perfect-scrollbar.css') }}">
+  <script src="{{ url_for('static',filename='jquery-3.1.1.min.js') }}"></script>
+  <script src="{{ url_for('static',filename='perfect-scrollbar.min.js') }}"></script>
+  <script src="{{ url_for('static',filename='sweetalert2.all.js') }}"></script>    
+  <script>
+    $(document).ready(function() {
+      new PerfectScrollbar('.table-like');
+      
+      $('#example1').click(function() {
+        swal({
+          imageUrl: '../static/img/example1.jpg',
+          imageAlt: 'example1'
+        });
+      });
+      $('#example2').click(function() {
+        swal({
+          imageUrl: '../static/img/example2.jpg',
+          imageAlt: 'example2'
+        });
+      });
+      $('#example3').click(function() {
+        swal({
+          imageUrl: '../static/img/example3.jpg',
+          imageAlt: 'example3'
+        });
+      });
+      $('aside.main-menu > div').click(function() {
+        var idx = $('aside.main-menu > div').index(this);
+        $('.main-content .list').addClass('hide');
+        $('.main-content .list').eq(idx).removeClass('hide');
+      });
+    });
+  </script>
+</head>
+<body class="center-body main-body">
+  <section class="main-page">
+    <aside class="main-menu">
+      <div>新人報到流程-1</div>
+      <div>新人報到流程-2</div>
+      <div>各種疑難雜症</div>
+    </aside>
+    <div class="main-content">
+      <div class="table-like">
+        <div class="list">
+          <h3><a>新人申請文件</a></h3>
+          <div>
+            <ul>
+              <li>1. 郵件服務申請單(人資會給，Marson親簽"部級主管"欄位後掃描)</li>
+              <li>2. 承諾書(人資會給，不需簽名直接掃描)</li>
+              <li>3. 網域帳戶申請單(從.30 server上列印，路徑192.168.87.30/Foxconn/新人報到後要做的申請/CNSBG網域帳戶申請單V1.0.pdf，Marson親簽"部門經理級以上主管"欄位後掃描)</li>
+            </ul>
+          </div>
+          <hr>
+          <div>
+            <h3><a>郵件服務申請單簽核流程 <small>(<span><a href="#" id="example1">申請單範例</span>)</a></small></h3>
+            <div>
+              <table>
+                <tbody>
+                  <tr><td>1. 部級主管 Marson </td><td>(同新人申請文件 1.) Marson親簽紙本後掃描</td></tr>
+                  <tr><td>2. 群最高主管 Steve </td><td>掃描檔寄給 Steve助理 楊浩淨 cpeii-rd-assistant/nsg/foxconn@foxconn.com</td></tr>
+                  <tr><td>3. 經管會簽 </td><td>掃描檔寄給 Nancy 陳玉香 nancy.yx.chen@mail.foxconn.com</td></tr>
+                  <tr><td>4. 人事會簽 </td><td>掃描檔寄給 Yuli  劉鳳儀 yuli.fy.liu@foxconn.com</td></tr>
+                  <tr><td colspan="2">4.1 在Notes上填寫資訊服務申請單 <small>(<span><a href="#" id="example2">範例</span>)</a></small><br>
+                    登入Lotus Notes→選擇「CNSBG資訊各類業務申請單」→選擇「新增表單」→b.共用磁碟權限)
+                  </td></tr>
+                  <tr><td>5. IT主管會簽 </td><td>掃描檔+網域帳戶申請單 寄給 Merry 張先華     merry.xh.zhang@foxconn.com</td></tr>
+                  <tr><td>6. 資訊主管 </td><td>掃描檔+網域帳戶申請單 寄給 Andy 王郁民    andy.ym.wang@mail.foxconn.com</td></tr>
+                  <tr><td colspan="2">*5. 和6. 有時候會一起簽完回傳</td></tr>
+                  <tr><td colspan="2">7. 郵件服務申請單簽核完畢，掃描檔寄給中央工管 pdss-helpdesk@mail.foxconn.com (分機560-104)，</td></tr>
+                  <tr><td colspan="2">並在信件內附上一份excel<small>(<span><a href="#" id="example3">範例</span>)</a></small>
+                    ，內容包含 工號、姓名、信箱帳號；審核主管姓名、工號及信箱。
+                  </td></tr>
+                  <tr><td colspan="2">中央工管作業完成後會回傳郵件告知。 *中央工管會默默幫你轉寄給富鴻網，所以在要寄的時候可以連承諾書一併附上</td></tr>
+                  <tr><td colspan="2">7. 掃描檔+承諾書 寄給富鴻網eservice@foxconn.com (分機560-112)開通外發權限</td></tr>
+                  <tr><td colspan="2">8. 可以登入supernotes了，信箱預設密碼supernotes</td></tr>
+                  <tr><td colspan="2">9. 掃描檔寄給 systemmail.hc.cnsbg@foxconn.com (分機550-6800)，請Notes小組提供密碼跟id檔，</td></tr>
+                  <tr><td colspan="2">信件內附上新人的信箱、工號、姓名。(這組帳密是請假和報加班用的)</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <hr>
+
+          <div>
+            <h3><a>郵件範例</a></h3>
+            <div>
+              <div class="border-form">
+                <div>主旨： 請您協助新人申請簽核</div>
+                <hr class="light-gray">
+                <div>
+                  Hi 浩淨/Nancy/Yuli/...,<br>
+                  <br>
+                  IoT事業處有 1 位新人 XXX 報到,<br>
+                  想請您協助簽核郵件服務申請單<br>
+                  謝謝您<br>
+                  <br>
+                  Best regards,<br>
+                  Lucy<br>
+                </div>
+                <hr class="light-gray">
+                <div><small>*如果人數>1人 ，請把所有郵件服務申請單合併成一份pdf後再寄出，會讓各單位會簽比較迅速</small></div>
+                <div><small>*如果簽核流程步驟1-5之間有單位三天以上沒有回覆，請直接打電話去催，或是再寄一次</small></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="list hide">
+            <h3><a>更新通訊錄</a></h3>
+            <div>
+                郵件服務申請完後需<br>
+                1. 導入通訊錄<br>
+                2. 發信給內湖廠所有人，告知自己的郵件已申請完畢，請大家更新通訊錄
+            </div>  
+          <h3><a>申請MAC address(開通公司網)</a></h3>
+          <div>
+              http://gncs.efoxconn.com/do/LogIO.action?_action=logout<br>
+              公司信箱申請完以後才能註冊帳號<br>
+              點右上角註冊後，點選「報修&服務申請」→「台灣入網申請」填申請表單
+          </div>
+          <h3><a>內湖廠信箱掃描(要先開通公司網)</a></h3>
+          <div>
+              http://10.60.120.20/scan.htm<br>
+              1. 掃描選信箱 036 IoT<br>
+              2. 取出文件後，須把雲端上的文件刪除，以節省空間
+          </div>
+          <h3><a>新人需要的安裝檔</a></h3>
+          <div>
+            http://192.168.87.30/Tools/<br>
+            包含 SuperNotes, Lotus Notes, Adobe...<br>
+            DAEMON, Net Framework等請自行下載<br>
+          </div>
+        </div>
+        <div class="list hide">
+          <h3><a>忘記Supernotes密碼</a></h3>
+          <div>
+            寄信給 systemmail.hc.cnsbg@foxconn.com (分機550-6800) 並告知忘記密碼，附上姓名，工號，分機
+          </div>
+          <h3><a>突然沒辦法登入加班系統(smart office)?</a></h3>
+          <div>
+            https://msvdi.ms.cloudnsbg.efoxconn.com/RDWeb/Pages/zh-TW/Default.aspx <br>
+            嘗試登入<br>
+            可登入→密碼過期，要換密碼(密碼每三個月過期，需包含英文大寫/小寫/數字/特殊符號 其中至少三種，長度至少八碼，不能和前12次密碼重複)<br>
+            不能登入→請重設密碼，打給MIS 王郁民 Andy 分機551-1431 信箱andy.ym.wang@mail.foxconn.com，他會教你如何重設密碼<br>
+          </div>
+          <h3><a>看考勤紀錄/報加班 Smart Office(要先開通公司網)</a></h3>
+          <div>
+            http://172.18.67.117/foxconn
+          </div>
+          <h3><a>載香信(尾牙進場&動員大會用)</a></h3>
+          <div>
+            http://icivet.foxconn.com/Download
+          </div>
+          <h3><a>差旅系統(出差，新幹班申請單，派車單...)</a></h3>
+          <div>
+            http://10.63.4.72/Travel/<br>
+            帳號密碼同 smart office<br>
+            填單請用IE開啟，會比較平安
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

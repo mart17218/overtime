@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Office Seats</title>
+  <link rel="stylesheet" href="{{ url_for('static',filename='seat.css') }}">
+  <script src="{{ url_for('static',filename='jquery-3.1.1.min.js') }}"></script>
+  <script>
+    var member_arr = [
+      [{"name":"高慧芳","en_name":"Ingrid","phone":"70145"},{"name":"黃翔蔚","en_name":"Walter","phone":"70137"},{"name":"戴毓璋","en_name":"Topson","phone":"70145"},{"name":"--","en_name":"--","phone":"70144"},{"name":"李文斌","en_name":"Steven","phone":"70146"},{"name":"林威志","en_name":"Sam","phone":"70143"}],
+      [{"name":"陳宥任","en_name":"Allen","phone":"70142"},{"name":"楊昌霖","en_name":"Brian","phone":"70140"},{"name":"蔡佩君","en_name":"Jessica","phone":"70141"},{"name":"黃意涵","en_name":"Beverly","phone":"70139"},{"name":"陳亮宏","en_name":"Leon","phone":"Leon"},{"name":"蔡如欣","en_name":"Lucy","phone":"70138"}],
+      [{"name":"蔡宜年","en_name":"Poosa","phone":"70134"},{"name":"張偉立","en_name":"Ali","phone":"70133"},{"name":"陳易志","en_name":"Will","phone":"70135"},{"name":"彭思倩","en_name":"Michelle","phone":"70133"},{"name":"黃星詠","en_name":"SY","phone":"70136"},{"name":"林琮凱","en_name":"Ryan","phone":"70132"}],
+      [{"name":"林韋成","en_name":"Woomar","phone":"70130"},{"name":"黃慶魁","en_name":"CK","phone":"70129"},{"name":"黃哲彥","en_name":"Eric","phone":"70130"},{"name":"簡嘉祐","en_name":"Marson","phone":"70128"},{"name":"金傳璋","en_name":"Dino","phone":"70131"},{"name":"簡志康","en_name":"James","phone":"70127"}]
+    ];
+    var member_arr2 = [
+      [{"name":"何慕晨","en_name":"Jerry","phone":"70124"},{"name":"徐翊凱","en_name":"Kevin","phone":"70125"},{"name":"王琳","en_name":"Lin","phone":"70121"},{"name":"陳冠穎","en_name":"Guan","phone":"70121"}],
+      [{"name":"--","en_name":"--","phone":"--"},{"name":"--","en_name":"--","phone":"--"},{"name":"--","en_name":"--","phone":"--"},{"name":"黃焌華","en_name":"?","phone":"?"}],
+      [{"name":"--","en_name":"--","phone":"--"},{"name":"--","en_name":"--","phone":"--"},{"name":"--","en_name":"--","phone":"--"},{"name":"--","en_name":"--","phone":"--"}],
+      [{"name":"卓依萱","en_name":"Laura","phone":"70107"},{"name":"梁思婕","en_name":"Lala","phone":"70107"},{"name":"林子方","en_name":"Jocelyn","phone":"70104"},{"name":"周淨柔","en_name":"Zoi","phone":"70104"}]
+    ];
+
+    $(document).ready(function() {
+      for(i in member_arr) {
+        var tr_str = '';
+        $.each(member_arr[i], function(key, person) {
+          tr_str += '<td>' + person.en_name + '<br>' + person.name + '<br>' + person.phone + '</td>';
+          if(key % 2 == 1) { tr_str = '<tr>' + tr_str + '</tr>'; }
+        });
+        $('#main_seat_' + i).html('<tbody>' + tr_str + '</tbody>');
+      }
+      for(i in member_arr2) {
+        var tr_str = '';
+        $.each(member_arr2[i], function(key, person) {
+          tr_str += '<td>' + person.en_name + '<br>' + person.name + '<br>' + person.phone + '</td>';
+          if(key % 2 == 1) { tr_str = '<tr>' + tr_str + '</tr>'; }
+        });
+        $('#side_seat_' + i).html('<tbody>' + tr_str + '</tbody>');
+      }
+    });
+  </script>
+</head>
+<body>
+  <header class="main-topic"></header>
+  <section class="main-block">
+    <div class="grid-container">
+      <div id="block_left">Chat room</div>
+      <div id="block_center" class="grid-1-2">
+        <div class="grid-4-1 main-seat">
+          <div class="block">
+            <table id="main_seat_0" class="seat-2-3 full-width"></table>
+          </div>
+          <div class="block">
+            <table id="main_seat_1" class="seat-2-3 full-width"></table>
+          </div>
+          <div class="block">
+            <table id="main_seat_2" class="seat-2-3 full-width"></table>
+          </div>
+          <div class="block">
+            <table id="main_seat_3" class="seat-2-3 full-width"></table>
+          </div>
+        </div>
+        <div class="meeting-room">Meet</div>
+      </div>
+      <div id="block_right">
+        <div class="block-right-top">Restroom</div>
+        <div class="block-right-bottom">
+          <div class="block-right-width inline-block">
+            <table id="side_seat_0" class="seat-2-2 full-width"></table>
+          </div>
+          <div class="block-right-width inline-block">
+            <table id="side_seat_1" class="seat-2-2 full-width"></table>
+          </div>
+          <div class="block-right-width inline-block">
+            <table id="side_seat_2" class="seat-2-2 full-width"></table>
+          </div>
+          <div class="block-right-width inline-block">
+            <table id="side_seat_3" class="seat-2-2 full-width"></table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Lets Work Beta Ver.</title>
+  <link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='animate.min.css') }}">
+  <script src="{{ url_for('static',filename='jquery-3.1.1.min.js') }}"></script>
+  <script src="{{ url_for('static',filename='moment.js') }}"></script>
+  <script src="{{ url_for('static',filename='function.js') }}"></script>
+    <script>
+        function getTime() {
+            $('.date-time').text(moment().format("YYYY/MM/DD (ddd.) HH:mm a"));
+        }
+        function updateChangeLog(target_div) {
+            // $(target_div + ' #version').text('v1.0.1');
+            $(target_div + ' #news').html('如果帳號密碼打錯的話，<br>青蛙就會......');
+        }
+        $(document).ready(function() {
+            getTime();
+            updateChangeLog('#change_log');
+            
+            $('section.login-page .card form button[type="submit"]').click(function() {
+                return false;
+            });
+            $('button.login-like').click(function() {
+                var target_input = 'section.login-page .card .card-content .content input';
+                if(checkInput(target_input)) {
+                    var account = $(target_input + '[type="account"]').val(),
+                        password = $(target_input + '[type="password"]').val();
+                    getUser({username: account, password: password}, 'button.login-like');
+                }
+            });
+            $('.overwork').click(function() {
+                $('div.main-options').addClass('hide');
+                $('div.pre-ot-menu').removeClass('hide');
+                getPoem();
+            });
+            $('.search .option-bar > button').click(function() {
+                $('.search .option-bar > button').removeClass('selected');
+                $(this).addClass('selected');
+            });
+            $('.action .card button.menu-like').click(function() {
+                $('.action .card button.menu-like').removeClass('selected');
+                $(this).addClass('selected');
+                $('.action .card .frame-border .form-like').find('button.active').removeClass('active');
+                $('.action .card .frame-border .form-like').find('input[type="text"]').val('');
+                $('.action .card .frame-border .status-hint').removeClass('done fail').text('');
+            });
+            $('#pre_form div[name="pre-date"] button').click(function() {
+                $('#pre_form div[name="pre-date"] button').removeClass('active');
+                $(this).addClass('active');
+            });
+            $('#pre_form div[name="pre-method"] button').click(function() {
+                $('#pre_form div[name="pre-method"] button').removeClass('active');
+                $(this).addClass('active');
+            });
+            $('#act_form div[name="act-date"] button').click(function() {
+                $('#act_form div[name="act-date"] button').removeClass('active');
+                $(this).addClass('active');
+            });
+            $('#submit_ot').click(function() {
+                var status_div = '.action .card .frame-border .status-hint';
+
+                $(status_div).removeClass('done fail').text('');
+                if ($('#apply_pre').hasClass('selected')) {
+                    var data = {
+                        'username': $('.float-mouse').data('acc'),
+                        'password': $('.float-mouse').data('pw'),
+                        'type': $('#pre_form div[name="pre-date"]').find('button.active').attr('value'),
+                        'method': $('#pre_form div[name="pre-method"]').find('button.active').attr('value'),
+                        'reason': $('#pre_form input[name="pre-reason"]').val()
+                    };
+                    var key_arr = Object.keys(data);
+                    for (var i = 0; i < key_arr.length; i++) {
+                        var data_key = key_arr[i];
+                        if (data[data_key] === undefined || data[data_key].length == 0) {
+                            $(status_div).addClass('fail').text('您有欄位尚未填寫!');
+                            return;
+                        }
+                    }
+                    applyPreOt('.action .overlay', '#submit_ot', status_div, data);
+                } else if ($('#apply_act').hasClass('selected')) {
+                    var data = {
+                        'username': $('.float-mouse').data('acc'),
+                        'password': $('.float-mouse').data('pw'),
+                        'type': $('#act_form div[name="act-date"]').find('button.active').attr('value')
+                    };
+                    var key_arr = Object.keys(data);
+                    for (var i = 0; i < key_arr.length; i++) {
+                        var data_key = key_arr[i];
+                        if (data[data_key] === undefined || data[data_key].length == 0) {
+                            $(status_div).addClass('fail').text('您有欄位尚未填寫!');
+                            return;
+                        }
+                    }
+                    applyActOt('.action .overlay', '#submit_ot', status_div, data);
+                }
+            });
+            $('#apply_pre').click(function() {
+                $('.action .card .half-width.frame-border').removeClass('blue').addClass('cyan');
+                $('.action .card .frame-border .title').text('預報');
+                $('.action .card .frame-border footer button.submit > span').text('預報');
+                $('#act_form').addClass('hide');
+                $('#pre_form').removeClass('hide');
+            });
+            $('#apply_act').click(function() {
+                $('.action .card .half-width.frame-border').removeClass('cyan').addClass('blue');
+                $('.action .card .frame-border .title').text('實報');
+                $('.action .card .frame-border footer button.submit > span').text('實報');
+                $('#pre_form').addClass('hide');
+                $('#act_form').removeClass('hide');
+            });
+            $('#search_pre').click(function() {
+                searchPreList('#result_list > tbody', '.search .overlay', '#search_pre, #search_act', $('.float-mouse').data('acc'), $('.float-mouse').data('pw'));
+            });
+            $('#search_act').click(function() {
+                searchActList('#result_list > tbody', '.search .overlay', '#search_pre, #search_act', $('.float-mouse').data('acc'), $('.float-mouse').data('pw'));
+            });
+        });
+    </script>
+</head>
+<body class="login-page">
+    <section class="login-page">
+        <div class="card">
+            <div class="half-width card-content">
+                <div class="title">登入</div>
+                <form method="post" action="#" class="content">
+                    <div><input type="account" placeholder="ID" autocomplete="on"></div>
+                    <div><input type="password" placeholder="Password" autocomplete="on"></div>
+                    <button type="submit" class="login-like">登入</button>
+                </form>
+                <footer></footer>
+            </div>
+        </div>
+        <div class="envelope">
+            <div class="content">
+                <div class="title">職場秘笈</div>
+                <div class="main-figure"><img src="../static/img/frog.png"></div>
+                <div class="subtitle">
+                    <div><a href="/seat">座位表</a></div>
+                    <div><a href="/doc">新人必讀</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="float-mouse">
+            <img src="../static/img/lala.png">
+            <div id="change_log" class="dialog-modal">
+                <span class="arrow-left"></span>
+                <!-- <div><label>版本</label><span id="version" class="small-text"></span></div> -->
+                <div><label>最新消息</label><span id="news" class="small-text"></span></div>
+            </div>
+        </div>
+        <footer>
+            <div class="animal-chords">
+                <img src="../static/img/cat-group.png">
+            </div>
+        </footer>
+    </section>
+    <section class="main-page hide">
+        <div class="welcome">
+            <div>Welcome, <span class="user"></span></div>
+            <span class="date-time"></span>
+        </div>
+        <div class="main-menu">
+            <div class="main-options">
+                <div class="op-ot">
+                    <div class="icon"><div class="circle"></div><div class="overwork"></div></div>
+                    <span>加班</span>
+                    <div class="detail">加班預報/實報<br>加班預報/實報查詢</div>
+                </div>
+                <div class="op-time">
+                    <div class="icon"><div class="circle"></div><div class="attend"></div></div>
+                    <span>考勤</span>
+                    <div class="detail">考勤異常查詢，含上下班時間<br>考勤異常補救，填寫理由並查詢進度</div>
+                </div>
+                <!-- <div class="op-doc" style="visibility: hidden">
+                    <div class="icon"><div class="circle"></div><div class=""></div></div>
+                    <span>新人</span>
+                    <div class="detail">新人必讀寶典各文件<br>申請網站、座位表...</div>
+                </div> -->
+            </div>
+            <div class="pre-ot-menu hide">
+                <div class="top-banner">
+                    <div class="left-box">
+                        <img class="frog" src="../static/img/frog.png">
+                        <img class="mouse" src="../static/img/lala.png">
+                    </div>
+                    <div class="right-box">
+                        <img class="cat-group" src="../static/img/cat-group.png">
+                    </div>
+                </div>
+                <div class="action">
+                    <div class="card">
+                        <div class="half-width">
+                            <button id="apply_pre" class="menu-like selected">預報</button>
+                            <button id="apply_act" class="menu-like">實報</button>
+                        </div>
+                        <div class="half-width frame-border cyan">
+                            <div class="title">預報</div>
+                            <div class="status-hint"></div>
+                            <div class="overlay dot-loading hide">
+                                <div class="spinner">
+                                    <div class="bounce1"></div>
+                                    <div class="bounce2"></div>
+                                    <div class="bounce3"></div>
+                                </div>
+                            </div>
+                            <div id="pre_form" class="form-like">
+                                <div name="pre-date">
+                                    <label>申請日期</label>
+                                    <button class="not-last-btn" value="d">當天</button><button value="w">當週</button>
+                                    <button class="not-last-btn" value="sat">當週六</button><button class="" value="sun">當週日</button>
+                                </div>
+                                <div name="pre-method">
+                                    <label>方式</label>
+                                    <button class="not-last-btn" value="加班費">加班費</button><button value="補休">補休</button>
+                                </div>
+                                <div>
+                                    <label>預加班內容</label>
+                                    <input type="text" name="pre-reason" placeholder="">
+                                </div>
+                            </div>
+                            <div id="act_form" class="form-like hide">
+                                <div name="act-date">
+                                    <label>申請日期</label>
+                                    <button value="d">上個工作日</button>
+                                    <button value="w">兩週內</button>
+                                    <button value="sat">上週六</button>
+                                    <button value="sun">上週日</button>
+                                </div>
+                            </div>
+                            <footer>
+                                <button id="submit_ot" class="submit">申請<span>預報</span>Go</button>
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+                <div class="search">
+                    <div class="card">
+                        <div class="option-bar">
+                            <button id="search_pre">查詢預報</button>
+                            <button id="search_act">查詢實報</button>
+                        </div>
+                        <div class="result frame-border cyan">
+                            <table id="result_list" class="result-list">
+                                <tbody>
+                                    <tr><td>暫無查詢結果</td></tr>
+                                </tbody>
+                            </table>
+                            <div class="overlay dot-loading hide">
+                                <div class="spinner">
+                                    <div class="bounce1"></div>
+                                    <div class="bounce2"></div>
+                                    <div class="bounce3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
