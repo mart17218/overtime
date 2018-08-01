@@ -1,0 +1,83 @@
+$docu-page-height: 80%;
+$docu-page-width: 60%;
+
+$white: #f7f7f7;
+$light-gray: #d8d8d8;
+$light-cyan: #17a8cd;
+$mid-blue: #177fc4;
+$dark-blue: #065b94;
+
+body {
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    &.main-body {
+        background: linear-gradient(to right, $light-cyan 1%, $mid-blue 100%);
+    }
+}
+section {
+    &.main-page {
+        height: $docu-page-height;
+        width: $docu-page-width;
+        top: (100% - $docu-page-height) / 2;
+        bottom: (100% - $docu-page-height) / 2;
+        left: (100% - $docu-page-width) / 2;
+        right: (100% - $docu-page-width) / 2;
+        position: relative;
+        display: table;
+        border-spacing: 20px;
+        aside, div.main-content {
+            border-radius: 12px;
+            padding: 18px 18px 24px 18px;
+            display: table-cell;
+            box-shadow: 0 2px 26px 0 $dark-blue;
+        }
+        aside.main-menu {
+            width: 25%;
+            margin-right: 2%;
+            background: $white;
+            > div {
+                font-size: 1.1rem;
+                background: $light-cyan;
+                border-radius: 10px;
+                padding: 12px 10px;
+                margin-bottom: 16px;
+                color: $white;
+                cursor: pointer;
+            }
+        }
+        .main-content {
+            width: 70%;
+            background: $white;
+            .table-like {
+                height: 100%;
+                overflow: auto;
+                position: relative;
+                .list {
+                    max-height: 740px;
+                }
+            }
+        }
+    }
+}
+.border-form {
+    width: calc(100% - 40px); // (inner-padding + scrollbar-width)
+    border: 1px $light-gray solid;
+    padding: 12px;
+    border-radius: 9px;
+}
+h3 {
+    margin: 0;
+    padding: 20px 0 12px;
+}
+li {
+    padding-bottom: 3px;
+}
+hr {
+    &.light-gray {
+        border: 1px $light-gray solid;
+    }
+}
+.hide { display: none !important; }

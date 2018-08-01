@@ -187,6 +187,10 @@ def doc():
 def seat():
     return render_template('seat.html')
 
+@app.route("/resign", methods = ['GET'])
+def resign():
+    return render_template('resign.html')
+
 # call on process start
 def start():
     return

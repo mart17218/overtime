@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Resign</title>
+  <link rel="stylesheet" href="{{ url_for('static',filename='perfect-scrollbar.css') }}">
+  <script src="{{ url_for('static',filename='jquery-3.1.1.min.js') }}"></script>
+  <script src="{{ url_for('static',filename='perfect-scrollbar.min.js') }}"></script>
+  <script src="{{ url_for('static',filename='sweetalert2.all.js') }}"></script>    
+  <script>
+    $(document).ready(function() {
+      $('#button1').click(function() {
+        let reason_set = ['身體不適', '想家', '要結婚了', '薪水太少', '個人因素'];
+        let date = (new Date().getMonth() + 1) + '/' + new Date().getDate();
+        let randnum = Math.round(Math.random() * (reason_set.length - 1));
+        swal({
+          width: '55%',
+          html: 
+                `<div class="example-text">
+                  <div>Hi \${boss_name}, </div>
+                  <div>由於 ${reason_set[randnum]}，希望請辭\${job}一職，並預計於${date}離開鴻海，</div>
+                  <div>謝謝您與團隊這段期間的照顧</div><br>
+                  <div>Best regards,</div>
+                  <div>\${your_name}</div>
+                </div>`
+        });
+      });
+    });
+  </script>
+  <style>
+    body.main-body {
+      width: 100%;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      background: linear-gradient(to right, #fff 1%, #ddd 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    section.main-page {
+      height: 76%;
+      width: 60%;
+      text-align: center;
+    }
+    footer {
+      margin: 20px 0;
+    }
+    .example-text {
+      font-size: 16px;
+      text-align: left;
+      border: 1px solid #858585;
+      border-radius: 2px;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body class="main-body">
+  <section class="main-page">
+    <div style="font-size: 18px; margin-bottom: 5%;">離職流程辦理</div>
+    <div>
+      <img src="../static/img/resign_step.png">
+    </div>
+    <footer>
+      <button id="button1">離職信產生器</button>
+    </footer>
+  </section>
+</body>
+</html>
